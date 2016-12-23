@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-angular.module('MenuApp')
+angular.module('data')
 .service('MenuDataService', MenuDataService);
 
 
@@ -16,7 +16,6 @@ function MenuDataService($http) {
       url: ("https://davids-restaurant.herokuapp.com/categories.json")
     })
     .then(function (response){
-      // console.log(response.data);
       return response.data;
     })
 
@@ -25,32 +24,14 @@ function MenuDataService($http) {
     return $http({
       method: "GET",
       url: ("https://davids-restaurant.herokuapp.com/menu_items.json"),
+      // url: (ApiBasePath + "/menu_items.json"),
       params: {
         category: categoryShortName
       }
     })
     .then(function (response){
-      var found = [];
-      for (var i = 0; i < response.data.menu_items.length; i++) {
-        var name = response.data.menu_items[i].description;
-          var item = {
-            short_name: response.data.menu_items[i].short_name,
-            name: response.data.menu_items[i].name,
-            description: response.data.menu_items[i].description
-          };
-          found.push(item);
-  }
-  return found;
-
-
+      return response.data;
     })
-
-    return response;
   };
-
 }
-
-
-
-
 })();
